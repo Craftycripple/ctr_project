@@ -12,8 +12,18 @@ from src.entities.train_pipeline_params import (
 	read_training_pipeline_schema
 )
 
-
-# тут должно быть что-то еще
+from src.features.build_transformer import (
+    build_ctr_transformer,
+    build_transformer,
+    extract_target,
+    process_count_features,
+)
+from src.models.model_fit_predict import (
+    train_model,
+    predict_model,
+    evaluate_model,
+    serialize_model,
+)
 
 
 
