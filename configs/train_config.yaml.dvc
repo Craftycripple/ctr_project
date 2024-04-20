@@ -1,0 +1,5 @@
+outs:
+- md5: d579d00bfd7fa84f89f958cd6df049d5
+  size: 1150
+  hash: md5
+  path: train_config.yaml

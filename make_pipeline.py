@@ -24,8 +24,7 @@ from src.models.model_fit_predict import (
 	serialize_model
 )
 
-# from src.models.repro_experiments import log_experiment_mlflow
-
+from src.models.repro_experiments import log_experiment_mlflow
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
@@ -80,13 +79,22 @@ def train_pipeline(config_path: str):
 		f"val features: {val_features.shape} \n {val_features.info()} \n {val_features.nunique()} \n {val_features.head()}"
 	)
 
-	model = train_model(
-		train_features, train_target, training_pipeline_params.train_params
-	)
-
-	predicted_proba, preds = predict_model(model, val_features)
-	metrics = evaluate_model(predicted_proba, preds, val_target)
-	logger.debug(f'preds/ targets shape: {preds.shape, val_target.shape}')
+	if training_pipeline_params.use_mlflow:
+		model, metrics = log_experiment_mlflow(
+			run_name="first_run",
+			train_features=train_features,
+			train_target=train_target,
+			val_features=val_features,
+			val_target=val_target,
+			training_pipeline_params=training_pipeline_params
+		)
+	else:
+		model = train_model(
+			train_features, train_target, training_pipeline_params.train_params
+		)
+		predicted_proba, preds = predict_model(model, val_features)
+		metrics = evaluate_model(predicted_proba, preds, val_target)
+		logger.debug(f"preds / targets shapes: {(preds.shape, val_target.shape)}")
 
 	# dump metrics to json
 
