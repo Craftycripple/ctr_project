@@ -1,0 +1,5 @@
+outs:
+- md5: 0aaa55bae9e4de771b9ac23b41088bf4
+  size: 2004930
+  hash: md5
+  path: ctr_transformer.pkl
