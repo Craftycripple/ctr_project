@@ -14,7 +14,7 @@ handler = logging.StreamHandler(sys.stdout)
 logger.setLevel(logging.DEBUG)
 logger.addHandler(handler)
 
-PATH = "configs/train_config.yaml"
+PATH = "../../configs/train_config.yaml"
 
 @dataclass()
 class TrainingPipelineParams:
@@ -27,8 +27,9 @@ class TrainingPipelineParams:
 	train_params: TrainingParams
 	input_data_path: str = field(default="../data/raw/sampled_train_50k.csv")
 	input_preprocessed_data_path: str = field(
-		default="../data/raw/sampled_preprocessing_train_50k.csv"
+		default="../data/raw/sampled_preprocessed_train_50k.csv"
 	)
+	use_mlflow: bool = field(default=True)
 
 TrainingPipelineParamsSchema = class_schema(TrainingPipelineParams)
 
