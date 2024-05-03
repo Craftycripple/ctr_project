@@ -16,7 +16,7 @@ logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
 if __name__ == "__main__":
-	config_path = "configs/train_config.yaml"
+	config_path = "../../configs/train_config.yaml"
 	training_pipeline_params: TrainingPipelineParams = read_training_pipeline_schema(
 		config_path
 	)
@@ -32,7 +32,7 @@ if __name__ == "__main__":
 		logger.info(f"check data.columns: {list(data.columns)}")
 
 		response = requests.post(
-			"http://0.0.0.0:8000/predict/",
+			"http://localhost:8000/predict/",
 			json={'data': [request_data], 'features': list(data.columns)}
 		)
 
